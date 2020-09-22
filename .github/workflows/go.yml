@@ -23,9 +23,14 @@ jobs:
       run: |
        ls 
        if [ -f "${SINGULARITY_RECIPE}" ]; then
-            sudo -E singularity build ${OUTPUT_CONTAINER} ${SINGULARITY_RECIPE}
+           singularity build ${OUTPUT_CONTAINER} ${SINGULARITY_RECIPE}
        else
            echo "${SINGULARITY_RECIPE} is not found."
            echo "Present working directory: $PWD"
            ls
        fi
+    - name: Store artefact
+      uses: actions/upload-artifact@v2
+      with:
+        name: singularity-container
+        path: container.sif
